@@ -37,5 +37,11 @@
         android:id="@+id/lock_b"
         android:text="Lock"
         />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edit_b"
+        android:text="Edit"
+        />
 
 </LinearLayout>

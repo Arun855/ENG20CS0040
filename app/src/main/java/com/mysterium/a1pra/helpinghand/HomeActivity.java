@@ -12,7 +12,7 @@ import android.widget.TextView;
 public class HomeActivity extends AppCompatActivity {
 
     TextView welcomeTv;
-    Button notes, reminder, expenses, lockButton;
+    Button notes, reminder, expenses, lockButton, editButton;
     String username;
     String password;
     String usernameCheck;
@@ -32,6 +32,7 @@ public class HomeActivity extends AppCompatActivity {
         reminder=findViewById(R.id.reminder_b);
         expenses=findViewById(R.id.expenses_b);
         lockButton=findViewById(R.id.lock_b);
+        editButton=findViewById(R.id.edit_b);
 
         name=getIntent().getStringExtra("name");
         username=getIntent().getStringExtra("username1");
@@ -80,6 +81,21 @@ public class HomeActivity extends AppCompatActivity {
 
                 startActivity(intent1);
                 finish();
+            }
+        });
+
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(HomeActivity.this,LoginActivity.class);
+                sharedPreferences = getSharedPreferences("myPref", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.remove("password");
+
+                editor.commit();
+                startActivity(intent1);
+                finish();
+
             }
         });
 

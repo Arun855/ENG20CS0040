@@ -15,7 +15,11 @@
         android:layout_gravity="center_horizontal"
         android:layout_height="wrap_content"
         />
-
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Your Name"
+        android:id="@+id/name_et"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -32,9 +36,10 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Your Name"
+        android:hint="New Password"
         android:inputType="textPassword"
-        android:id="@+id/name_et"/>
+        android:id="@+id/newpass_et"/>
+
 
     <Button
         android:layout_width="match_parent"
