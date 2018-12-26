@@ -10,29 +10,32 @@
     <TextView
         android:layout_width="match_parent"
         android:id="@+id/login_tv"
+        android:text="Login"
+        android:gravity="center"
         android:layout_gravity="center_horizontal"
         android:layout_height="wrap_content"
         />
-    <TextView
-        android:layout_width="match_parent"
-        android:id="@+id/user_tv"
-        android:layout_gravity="center_horizontal"
-        android:layout_height="wrap_content"
-        />
+
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="Username"
         android:id="@+id/user_et"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:id="@+id/pass_tv"
-        android:layout_gravity="center_horizontal"
-        android:layout_height="wrap_content"
-        />
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="Password"
+        android:inputType="textPassword"
         android:id="@+id/pass_et"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Your Name"
+        android:inputType="textPassword"
+        android:id="@+id/name_et"/>
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -47,6 +50,8 @@
         android:id="@+id/clear_b"
         android:text="Clear"
         />
+
+
 
 
 </LinearLayout>

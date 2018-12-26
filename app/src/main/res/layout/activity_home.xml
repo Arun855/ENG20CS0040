@@ -16,22 +16,26 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="My Notes"
         android:id="@+id/notes_b"
         />
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/reminder_b"
+        android:text="Reminder"
         />
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/expenses_b"
+        android:text="Expenses"
         />
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/lock_b"
+        android:text="Lock"
         />
 
 </LinearLayout>
