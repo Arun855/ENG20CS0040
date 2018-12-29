@@ -10,7 +10,8 @@
     <TextView
         android:layout_width="match_parent"
         android:id="@+id/login_tv"
-        android:text="Login"
+        android:textSize="18sp"
+        android:text="Welcome. Please create your Locker."
         android:gravity="center"
         android:layout_gravity="center_horizontal"
         android:layout_height="wrap_content"
