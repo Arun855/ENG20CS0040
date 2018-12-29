@@ -11,6 +11,14 @@
         android:textColor="#ff23aa"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/expenses_price_et"
+        android:textSize="36sp"
+        android:textColor="#ff23aa"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:background="@android:color/transparent"
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/expenses_name_tv"
@@ -18,12 +26,28 @@
         android:textColor="#7711aa"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/expenses_name_et"
+        android:textSize="24sp"
+        android:textColor="#7711aa"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:background="@android:color/transparent"
+        android:layout_height="wrap_content" />
     <TextView
             android:id="@+id/expenses_date_tv"
             android:textSize="24sp"
             android:textColor="#7711aa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/expenses_date_et"
+        android:textSize="24sp"
+        android:textColor="#7711aa"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:background="@android:color/transparent"
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/expenses_remarks_tv"
@@ -31,6 +55,15 @@
         android:textColor="#7711aa"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/expenses_remarks_et"
+        android:textSize="24sp"
+        android:textColor="#7711aa"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:background="@android:color/transparent"
+        android:layout_height="wrap_content" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -43,6 +76,14 @@
             android:layout_height="wrap_content"
             android:id="@+id/expenses_edit_b"
             android:text="Edit"
+            android:layout_weight="3"
+            />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/expenses_save_b"
+            android:text="Save"
+            android:visibility="gone"
             android:layout_weight="3"
             />
         <Button

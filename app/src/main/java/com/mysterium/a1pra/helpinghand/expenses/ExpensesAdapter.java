@@ -31,7 +31,7 @@ public class ExpensesAdapter extends RecyclerView.Adapter<ExpensesViewHolder>
         @Override//means whatever we are extending is changed to put our own stuff
         public void onBindViewHolder(@NonNull ExpensesViewHolder holder, int position) {
             ExpensesModel expenseItem = expensesList.get(position);
-            holder.populate(expenseItem);
+            holder.populate(expenseItem,position);
         }
 
         @Override

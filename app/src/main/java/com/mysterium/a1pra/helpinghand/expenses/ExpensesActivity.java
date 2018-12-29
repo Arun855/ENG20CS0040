@@ -1,5 +1,7 @@
 package com.mysterium.a1pra.helpinghand.expenses;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -18,8 +20,9 @@ public class ExpensesActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     Button addB;
+    public static Activity activity = null;
     SharedPreferences sharedPreferences;
-
+    public static Context contextOfApplication;
 
     /* This is function which uses the SharedPreferences
      * to get database from the sharedpreferences and run
@@ -64,11 +67,16 @@ public class ExpensesActivity extends AppCompatActivity {
         editor.commit();
     }
 
-
+    public static Context getContextOfApplication(){
+        return contextOfApplication;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        contextOfApplication = getApplicationContext();
+        activity = this;
 
         sharedPreferences = getApplicationContext().getSharedPreferences("myPref", MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedPreferences.edit();
