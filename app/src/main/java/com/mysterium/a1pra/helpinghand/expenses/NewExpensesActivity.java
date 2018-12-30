@@ -8,9 +8,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.mysterium.a1pra.helpinghand.R;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class NewExpensesActivity extends AppCompatActivity {
 
@@ -81,9 +86,17 @@ public class NewExpensesActivity extends AppCompatActivity {
             public void onClick(View v) {
                 newItem=addItem.getText().toString();
                 newPrice=addPrice.getText().toString();
-                newDate=addDate.getText().toString();
+                if(addDate.getText().toString().isEmpty()){
+                    Calendar c=Calendar.getInstance();
+                    SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss, EEE\ndd-MM-yyyy");
+                    newDate=df.format(c.getTime());
+                }
+                else{
+                newDate=addDate.getText().toString();}
                 newRemarks=addRemarks.getText().toString();
 
+                try{
+                double price=Double.parseDouble(newPrice);
                 ArrayList<String> tempItemList=new ArrayList();
                 ArrayList<String> tempPriceList=new ArrayList();
                 ArrayList<String> tempDateList=new ArrayList();
@@ -107,7 +120,11 @@ public class NewExpensesActivity extends AppCompatActivity {
 
                 Intent intent=new Intent(NewExpensesActivity.this, com.mysterium.a1pra.helpinghand.expenses.ExpensesActivity.class);
                 startActivity(intent);
-                finish();
+                finish();}
+                catch (Exception e)
+                {
+                    Toast.makeText(NewExpensesActivity.this, "Please enter the amount in numbers.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

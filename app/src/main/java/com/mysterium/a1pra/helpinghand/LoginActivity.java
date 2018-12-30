@@ -7,12 +7,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
 
     EditText usernameEt, passwordEt, nameEt, newPasswordEt;
     Button loginButton, clearButton;
+    TextView loginTv;
     String username, password, name, usernameCheck, passwordCheck;
     SharedPreferences sharedPreferences;
 
@@ -25,6 +27,7 @@ public class LoginActivity extends AppCompatActivity {
         passwordEt=findViewById(R.id.pass_et);
         newPasswordEt=findViewById(R.id.newpass_et);
         nameEt=findViewById(R.id.name_et);
+        loginTv=findViewById(R.id.login_tv);
         loginButton=findViewById(R.id.login_b);
         clearButton=findViewById(R.id.clear_b);
         newPasswordEt.setVisibility(View.GONE);
@@ -107,6 +110,7 @@ public class LoginActivity extends AppCompatActivity {
         {
 
             nameEt.setVisibility(View.GONE);
+            loginTv.setText("Welcome, Please unlock the Locker.");
             loginButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -116,26 +120,30 @@ public class LoginActivity extends AppCompatActivity {
 
                     usernameCheck = sharedPreferences.getString("checkuser", null);
                     passwordCheck = sharedPreferences.getString("checkpass",null);
-                    if(username.equals(usernameCheck)&&password.equals(passwordCheck))
-                    {
-                        Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
 
-                        name = sharedPreferences.getString("name", null);
-                        intent.putExtra("username1", username);
-                        intent.putExtra("password1", password);
-                        intent.putExtra("name", name);
-                        intent.putExtra("usernamecheck", usernameCheck);
-                        intent.putExtra("passwordcheck", passwordCheck);
-                        startActivity(intent);
-                        finish();
-                        editor.putString("username", username);
-                        editor.putString("password", password);
-                        editor.commit();
-
+                    if(username.isEmpty()||password.isEmpty()){
+                        Toast.makeText(LoginActivity.this, "Please input valid data!!", Toast.LENGTH_SHORT).show();
                     }
-                    else
-                    {
-                        Toast.makeText(LoginActivity.this, "Privacy Invader go attack apps of other groups :P", Toast.LENGTH_SHORT).show();
+                    else{
+                        if (username.equals(usernameCheck) && password.equals(passwordCheck)) {
+                            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+
+                            name = sharedPreferences.getString("name", null);
+                            intent.putExtra("username1", username);
+                            intent.putExtra("password1", password);
+                            intent.putExtra("name", name);
+                            intent.putExtra("usernamecheck", usernameCheck);
+                            intent.putExtra("passwordcheck", passwordCheck);
+                            startActivity(intent);
+                            finish();
+                            editor.putString("username", username);
+                            editor.putString("password", password);
+                            editor.commit();
+
+                        }
+                        else {
+                            Toast.makeText(LoginActivity.this, "Privacy Invader go attack apps of other groups :P", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                 }
@@ -159,6 +167,7 @@ public class LoginActivity extends AppCompatActivity {
             passwordCheck = sharedPreferences.getString("checkpass",null);
             name = sharedPreferences.getString("name", null);
 
+            loginTv.setText("Edit the Locker details.");
             usernameEt.setText(username);
             nameEt.setText(name);
             passwordEt.setHint("Confirm old Password");
@@ -170,38 +179,45 @@ public class LoginActivity extends AppCompatActivity {
                 public void onClick(View v) {
 
                     if(passwordEt.getText().toString().equals(passwordCheck)) {
-                        usernameCheck = usernameEt.getText().toString();
-                        passwordCheck = newPasswordEt.getText().toString();
 
-                        username = usernameCheck;
-                        password = passwordCheck;
-                        name = nameEt.getText().toString();
-
-                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-
-
-                        if (name.isEmpty() || username.isEmpty() || password.isEmpty()) {
-                            Toast.makeText(LoginActivity.this, "Please input valid data!!", Toast.LENGTH_SHORT).show();
-                        } else {
-
-                            intent.putExtra("name", name);
-                            editor.putString("name", name);
-                            editor.commit();
-                            intent.putExtra("username", username);
-                            intent.putExtra("password", password);
-                            intent.putExtra("usernamecheck", usernameCheck);
-                            intent.putExtra("passwordcheck", passwordCheck);
-                            startActivity(intent);
-                            finish();
-
+                        if(newPasswordEt.getText().toString().equals(passwordCheck))
+                        {
+                            Toast.makeText(LoginActivity.this, "New and old passwords cannot be same.", Toast.LENGTH_SHORT).show();
                         }
+                        else{
+                            usernameCheck = usernameEt.getText().toString();
+                            passwordCheck = newPasswordEt.getText().toString();
+
+                            username = usernameCheck;
+                            password = passwordCheck;
+                            name = nameEt.getText().toString();
+
+                            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
 
 
-                        editor.putString("username", username);
-                        editor.putString("password", password);
-                        editor.putString("checkuser", usernameCheck);
-                        editor.putString("checkpass", passwordCheck);
-                        editor.commit();
+                            if (name.isEmpty() || username.isEmpty() || password.isEmpty()) {
+                                Toast.makeText(LoginActivity.this, "Please input valid data!!", Toast.LENGTH_SHORT).show();
+                            } else {
+
+                                intent.putExtra("name", name);
+                                editor.putString("name", name);
+                                editor.commit();
+                                intent.putExtra("username", username);
+                                intent.putExtra("password", password);
+                                intent.putExtra("usernamecheck", usernameCheck);
+                                intent.putExtra("passwordcheck", passwordCheck);
+                                startActivity(intent);
+                                finish();
+
+                            }
+
+
+                            editor.putString("username", username);
+                            editor.putString("password", password);
+                            editor.putString("checkuser", usernameCheck);
+                            editor.putString("checkpass", passwordCheck);
+                            editor.commit();
+                        }
                     }
                     else if(!passwordEt.getText().toString().equals(passwordCheck)){
                         Toast.makeText(LoginActivity.this, "You have forgotten your password!!", Toast.LENGTH_SHORT).show();

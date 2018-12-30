@@ -3,11 +3,14 @@ package com.mysterium.a1pra.helpinghand.expenses;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
 import com.mysterium.a1pra.helpinghand.R;
 
@@ -16,6 +19,7 @@ import java.util.ArrayList;
 public class ExpensesViewHolder extends RecyclerView.ViewHolder{
 
     SharedPreferences sharedPreferences;
+    LinearLayout viewLinearLayout;
     private TextView itemNameTv, dateTv, priceTv, remarksTv;
     private EditText itemNameEt, dateEt, priceEt, remarksEt;
     private Button editB,deleteB,saveB;
@@ -77,6 +81,7 @@ public class ExpensesViewHolder extends RecyclerView.ViewHolder{
         editB=itemView.findViewById(R.id.expenses_edit_b);
         deleteB=itemView.findViewById(R.id.expenses_delete_b);
         saveB=itemView.findViewById(R.id.expenses_save_b);
+        viewLinearLayout=itemView.findViewById(R.id.expense_ll);
 
     }
 
@@ -102,7 +107,8 @@ public class ExpensesViewHolder extends RecyclerView.ViewHolder{
             @Override
             public void onClick(View v) {
 
-
+                InputMethodManager imm = (InputMethodManager)applicationContext.getSystemService(applicationContext.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
                 priceTv.setVisibility(View.GONE);
                 priceEt.setVisibility(View.VISIBLE);
                 itemNameTv.setVisibility(View.GONE);
@@ -117,46 +123,49 @@ public class ExpensesViewHolder extends RecyclerView.ViewHolder{
                 saveB.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ArrayList<String> editList=new ArrayList<>();
-                        int length=sharedPreferences.getInt("Length",0);
+                     try{
+                        ArrayList<String> editList = new ArrayList<>();
+                        int length = sharedPreferences.getInt("Length", 0);
 
-                        editList=getDB(editList,length,"item");
-                        if(itemNameEt.getText().toString().isEmpty())
-                        {
+                        editList = getDB(editList, length, "item");
+                        if (itemNameEt.getText().toString().isEmpty()) {
                             editList.set(position, itemNameEt.getHint().toString());
+                        } else {
+                            editList.set(position, itemNameEt.getText().toString());
                         }
-                        else {editList.set(position, itemNameEt.getText().toString());}
-                        updateDB(editList,"item");
+                        updateDB(editList, "item");
 
                         editList.clear();
-                        editList=getDB(editList,length,"price");
-                        if(priceEt.getText().toString().isEmpty())
-                        {
+                        editList = getDB(editList, length, "price");
+                        if (priceEt.getText().toString().isEmpty()) {
+                            double testPrice=Double.parseDouble(priceEt.getHint().toString());
                             editList.set(position, priceEt.getHint().toString());
+                        } else {
+                            double testPrice=Double.parseDouble(priceEt.getText().toString());
+                            editList.set(position, priceEt.getText().toString());
                         }
-                        else {editList.set(position, priceEt.getText().toString());}
-                        updateDB(editList,"price");
+                        updateDB(editList, "price");
 
                         editList.clear();
-                        editList=getDB(editList,length,"date");
-                        if(dateEt.getText().toString().isEmpty())
-                        {
+                        editList = getDB(editList, length, "date");
+                        if (dateEt.getText().toString().isEmpty()) {
                             editList.set(position, dateEt.getHint().toString());
+                        } else {
+                            editList.set(position, dateEt.getText().toString());
                         }
-                        else {editList.set(position, dateEt.getText().toString());}
-                        updateDB(editList,"date");
+                        updateDB(editList, "date");
 
                         editList.clear();
-                        editList=getDB(editList,length,"remarks");
-                        if(remarksEt.getText().toString().isEmpty())
-                        {
+                        editList = getDB(editList, length, "remarks");
+                        if (remarksEt.getText().toString().isEmpty()) {
                             editList.set(position, remarksEt.getHint().toString());
+                        } else {
+                            editList.set(position, remarksEt.getText().toString());
                         }
-                        else {editList.set(position, remarksEt.getText().toString());}
-                        updateDB(editList,"remarks");
+                        updateDB(editList, "remarks");
 
 
-                        editor.putInt("Length",editList.size());
+                        editor.putInt("Length", editList.size());
                         editor.commit();
                         /*itemNameEt.setVisibility(View.GONE);
                         itemNameTv.setVisibility(View.VISIBLE);
@@ -168,7 +177,15 @@ public class ExpensesViewHolder extends RecyclerView.ViewHolder{
                         remarksTv.setVisibility(View.VISIBLE);
                         saveB.setVisibility(View.GONE);
                         editB.setVisibility(View.VISIBLE);*/
+                        InputMethodManager imm = (InputMethodManager)applicationContext.getSystemService(applicationContext.INPUT_METHOD_SERVICE);
+
+                        imm.hideSoftInputFromWindow(viewLinearLayout.getWindowToken(), 0);
                         ExpensesActivity.activity.recreate();
+                    }
+                    catch(Exception e)
+                    {
+                        Toast.makeText(applicationContext, "Please enter the amount in numbers.", Toast.LENGTH_SHORT).show();
+                    }
                     }
                 });
                 //get the data base to array list

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.support.design.widget.FloatingActionButton;
 import android.widget.Button;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import com.mysterium.a1pra.helpinghand.R;
 public class ExpensesActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
-    Button addB;
+    FloatingActionButton addB;
     public static Activity activity = null;
     SharedPreferences sharedPreferences;
     public static Context contextOfApplication;
