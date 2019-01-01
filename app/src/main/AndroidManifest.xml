@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mysterium.a1pra.helpinghand">
 
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.Camera2" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -26,6 +32,9 @@
         <activity android:name=".expenses.NewExpensesActivity" />
         <activity android:name=".mynotes.NewNoteActivity" />
         <activity android:name=".reminders.NewReminderActivity"></activity>
+        <receiver android:name=".reminders.MyBroadcastReceiver">
+
+        </receiver>
     </application>
 
 </manifest>

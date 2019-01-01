@@ -1,5 +1,7 @@
 package com.mysterium.a1pra.helpinghand;
-
+/*
+ * Author: Prabhutva Agrawal
+ */
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;

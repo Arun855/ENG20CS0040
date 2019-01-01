@@ -1,5 +1,7 @@
 package com.mysterium.a1pra.helpinghand.expenses;
-
+/*
+ * Author: Prabhutva Agrawal
+ */
 public class ExpensesModel {
     private String itemName,dateAdded,remarks,price;
 
