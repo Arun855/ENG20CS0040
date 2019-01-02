@@ -1,4 +1,5 @@
-# HelpingHand renamed to Student Diary
+# Student Diary
+Earlier Helping Hand
 MAC Android vertical winter vacations project
 Group 1
 *Prabhutva Agrawal (Head)
