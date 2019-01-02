@@ -94,11 +94,14 @@ public class HomeActivity extends AppCompatActivity {
         popupB = findViewById(R.id.popup);
 
         name = getIntent().getStringExtra("name");
+        name= sharedPreferences.getString("name",null);
         username = getIntent().getStringExtra("username1");
         password = getIntent().getStringExtra("password1");
         usernameCheck = getIntent().getStringExtra("usernamecheck");
         passwordCheck = getIntent().getStringExtra("passwordcheck");
         welcomeTv.setText("Hi " + name + " !");
+
+
 
         notes.setOnClickListener(new View.OnClickListener() {
             @Override
