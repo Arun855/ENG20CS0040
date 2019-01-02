@@ -13,11 +13,10 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:screenOrientation="sensorPortrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:windowSoftInputMode="adjustResize"
-        android:screenOrientation="sensorPortrait"
-        >
+        android:windowSoftInputMode="adjustResize">
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,10 +30,12 @@
         <activity android:name=".reminders.RemindersActivity" />
         <activity android:name=".expenses.NewExpensesActivity" />
         <activity android:name=".mynotes.NewNoteActivity" />
-        <activity android:name=".reminders.NewReminderActivity"></activity>
-        <receiver android:name=".reminders.MyBroadcastReceiver">
+        <activity android:name=".reminders.NewReminderActivity" />
 
-        </receiver>
+        <receiver android:name=".reminders.MyBroadcastReceiver" />
+
+        <activity android:name=".AboutActivity" />
+        <activity android:name=".SettingsActivity"></activity>
     </application>
 
 </manifest>

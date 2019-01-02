@@ -75,7 +75,7 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
 
             Notification notify=new Notification.Builder
                     (context).setContentTitle("Reminder").setContentText(reminder).
-                    setContentTitle("**ALERT**").setSmallIcon(R.drawable.ic_launcher_foreground).setChannelId(channelId).build();
+                    setContentTitle("Reminder").setSmallIcon(R.drawable.ic_launcher_foreground).setChannelId(channelId).build();
             int notificationID=(int)System.currentTimeMillis();
             notify.flags |= Notification.FLAG_AUTO_CANCEL;
 
@@ -91,7 +91,7 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
 
             Notification notify=new Notification.Builder
                     (context).setContentTitle("Reminder").setContentText(reminder).
-                    setContentTitle("**ALERT**").setSmallIcon(R.drawable.ic_launcher_foreground).build();
+                    setContentTitle("Reminder").setSmallIcon(R.drawable.ic_launcher_foreground).build();
             int notificationID=(int)System.currentTimeMillis();
             notify.flags |= Notification.FLAG_AUTO_CANCEL;
 
@@ -133,7 +133,7 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
         try {
 
             String cameraId = cameraManager.getCameraIdList()[0];
-            String myString = "0101010101";
+            String myString = "000011000011000011000011000011";
 
             long blinkDelay = 50;
             for (int i = 0; i < myString.length(); i++) {
@@ -152,6 +152,8 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
                 }
             }
         }catch(CameraAccessException e){}
+        vibrator.vibrate(300);
+
     }
 
 

@@ -11,22 +11,29 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import com.mysterium.a1pra.helpinghand.R;
 
 public class NewNoteActivity extends AppCompatActivity {
     EditText addNoteTitle, addNoteContent;
     SharedPreferences sharedPreferences;
-    FloatingActionButton saveNote;
+    Button saveNote,clearNote;
     String newNoteTitle, newNoteContent;
-
+    LinearLayout linearLayout;
     View newNoteScreen;
 
 
-
+    //Function created by Prabhutva Agrawal
     public ArrayList<String> getDB(ArrayList<String> arrayList, int length, String category) {
         sharedPreferences = this.getSharedPreferences("myPref", MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -39,7 +46,7 @@ public class NewNoteActivity extends AppCompatActivity {
         return arrayList;
 
     }
-
+    //Function created by Prabhutva Agrawal
     public void updateDB(ArrayList<String> arrayList, String category) {
         sharedPreferences = this.getSharedPreferences("myPref", MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -62,40 +69,87 @@ public class NewNoteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_note);
+        Window w = getWindow(); // in Activity's onCreate() for instance
+        w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         sharedPreferences = getApplicationContext().getSharedPreferences("myPref", MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedPreferences.edit();
+        linearLayout=findViewById(R.id.new_note);
+        int darkTheme=sharedPreferences.getInt("darkTheme",0);
+        if(darkTheme==1)
+        {//change theme to dark.
+            linearLayout.setBackgroundResource(R.drawable.gradientdark);
+        }
+        else if(darkTheme==2){
+            Calendar c=Calendar.getInstance();
+            SimpleDateFormat df = new SimpleDateFormat("HH");
+            String time=df.format(c.getTime());
+            int check=Integer.parseInt(time);
+            if(5<=check&&check<11){
+                linearLayout.setBackgroundResource(R.drawable.gradientmorning);
+            }
+            else if(11<=check&&check<16){
+                linearLayout.setBackgroundResource(R.drawable.gradientnoon);
+            }
+            else if(16<=check&&check<19){
+                linearLayout.setBackgroundResource(R.drawable.gradientevening);
+            }
+            else{
+                linearLayout.setBackgroundResource(R.drawable.gradientnight);
+            }
+
+
+        }
+        else{
+            //set theme bright.
+            linearLayout.setBackgroundResource(R.drawable.gradient);
+        }
+
         addNoteTitle = findViewById(R.id.et_title);
         addNoteContent = findViewById(R.id.et_content);
-        saveNote = findViewById(R.id.fab_save);
+        saveNote = findViewById(R.id.save_note_b);
+        clearNote = findViewById(R.id.clear_note_b);
 
         newNoteScreen = findViewById(R.id.new_note);
 
         saveNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                newNoteTitle = addNoteTitle.getText().toString();
-                newNoteContent = addNoteContent.getText().toString();
 
-                ArrayList<String> tempTitleList = new ArrayList();
-                ArrayList<String> tempContentList = new ArrayList();
+                if(addNoteTitle.getText().toString().isEmpty()||addNoteContent.getText().toString().isEmpty())
+                {
+                    Toast.makeText(NewNoteActivity.this,"Please enter valid data.",Toast.LENGTH_SHORT).show();}
+                else{
+                    newNoteTitle = addNoteTitle.getText().toString();
+                    newNoteContent = addNoteContent.getText().toString();
 
-                int length = sharedPreferences.getInt("Length", 0);
+                    ArrayList<String> tempTitleList = new ArrayList();
+                    ArrayList<String> tempContentList = new ArrayList();
 
-                tempTitleList = getDB(tempTitleList, length, "title");
-                tempContentList = getDB(tempContentList, length, "content");
+                    int length = sharedPreferences.getInt("Length", 0);
 
-                tempTitleList.add(newNoteTitle);
-                tempContentList.add(newNoteContent);
+                    tempTitleList = getDB(tempTitleList, length, "title");
+                    tempContentList = getDB(tempContentList, length, "content");
 
-                updateDB(tempTitleList, "title");
-                updateDB(tempContentList, "content");
+                    tempTitleList.add(newNoteTitle);
+                    tempContentList.add(newNoteContent);
 
-                Intent intent = new Intent(NewNoteActivity.this, MyNotesActivity.class);
-                startActivity(intent);
-                finish();
+                    updateDB(tempTitleList, "title");
+                    updateDB(tempContentList, "content");
+
+                    Intent intent = new Intent(NewNoteActivity.this, MyNotesActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
                 }
             }
         );
+        clearNote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addNoteTitle.setText("");
+                addNoteContent.setText("");
+            }
+        });
 
     }
 

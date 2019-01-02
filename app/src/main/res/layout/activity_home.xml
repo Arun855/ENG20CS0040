@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".HomeActivity"
-    android:background="@drawable/gradient"
     android:orientation="vertical"
+    android:fitsSystemWindows="true"
     android:weightSum="9.5"
+    android:id="@+id/home_ll"
+
     >
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context=".HomeActivity"
+        android:orientation="vertical"
+        android:fitsSystemWindows="true"
+        android:weightSum="9.5"
+        >
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -15,22 +27,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:context=".HomeActivity"
-        android:orientation="vertical"
         android:layout_weight="1"
+        android:orientation="vertical"
         >
-        <android.support.v7.widget.CardView
-            xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+
+        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:id="@+id/card_view_welcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="35dp"
             android:layout_marginHorizontal="15dp"
-            card_view:contentPadding="1dp"
-            card_view:cardElevation="0dp"
+            android:layout_marginTop="35dp"
             card_view:cardBackgroundColor="#55ffffff"
-            card_view:cardCornerRadius="10dp">
+            card_view:cardCornerRadius="10dp"
+            card_view:cardElevation="0dp"
+            card_view:contentPadding="1dp">
 
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -41,18 +55,24 @@
                 android:orientation="vertical"
                 tools:context=".HomeActivity">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:paddingBottom="15dp"
-                    android:layout_marginTop="7dp"
-                    android:layout_marginHorizontal="7dp"
-                    android:text="@string/app_name"
-                    android:textSize="30sp" />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="7dp"
+                        android:layout_marginTop="7dp"
+                        android:gravity="center_horizontal"
+                        android:paddingBottom="15dp"
+                        android:text="@string/app_name"
+                        android:textSize="30sp" />
+
 
             </LinearLayout>
         </android.support.v7.widget.CardView>
+
+
+
     </LinearLayout>
     <View
         android:layout_height="0dp"
@@ -112,15 +132,28 @@
                             <Button
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:id="@+id/expenses_b"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_weight="1"
+                                android:textSize="16dp"
+                                android:text="Expenses"
+                                android:textColor="#88000000"
+                                android:layout_marginBottom="3dp"
+                                android:background="@drawable/round"
+                                android:layout_marginRight="4dp"
+                                />
+                            <Button
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
                                 android:text="My Notes"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_weight="1"
                                 android:textSize="16dp"
                                 android:id="@+id/notes_b"
-                                android:textColor="#444444"
+                                android:textColor="#88000000"
                                 android:layout_marginBottom="3dp"
                                 android:background="@drawable/round"
-                                android:layout_marginRight="4dp"
+                                android:layout_marginHorizontal="4dp"
                                 />
                             <Button
                                 android:layout_width="match_parent"
@@ -130,35 +163,18 @@
                                 android:layout_weight="1"
                                 android:textSize="16dp"
                                 android:text="Reminder"
-                                android:textColor="#444444"
-                                android:layout_marginBottom="3dp"
-                                android:background="@drawable/round"
-                                android:layout_marginHorizontal="4dp"
-                                />
-                            <Button
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/expenses_b"
-                                android:layout_gravity="center_horizontal"
-                                android:layout_weight="1"
-                                android:textSize="16dp"
-                                android:text="Expenses"
-                                android:textColor="#444444"
+                                android:textColor="#88000000"
                                 android:layout_marginBottom="3dp"
                                 android:background="@drawable/round"
                                 android:layout_marginLeft="4dp"
                                 />
+
                     </LinearLayout>
                 </LinearLayout>
         </android.support.v7.widget.CardView>
 
     </LinearLayout>
-    <View
-        android:layout_height="0dp"
-        android:layout_width="match_parent"
-        android:layout_weight="3"
 
-        />
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -169,38 +185,22 @@
         android:layout_weight="0.5"
         android:layout_marginHorizontal="15dp"
         >
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/lock_b"
-            android:text="Lock"
-            android:textSize="16dp"
-            android:layout_gravity="left"
-            android:textColor="#444444"
-            android:layout_marginBottom="3dp"
-            android:background="@drawable/round"
-            />
-        <View
-            android:layout_height="match_parent"
-            android:layout_width="0dp"
-            android:layout_weight="25"
-            />
 
-        <Button
-            android:id="@+id/edit_b"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginBottom="3dp"
-            android:background="@drawable/round"
-            android:text="Edit"
-            android:textColor="#444444"
-            android:textSize="16dp" />
+
+
+
+
+
     </LinearLayout>
-    <View
-        android:layout_height="0dp"
-        android:layout_width="match_parent"
-        android:layout_weight="1"
-
-        />
-</LinearLayout>
+    </LinearLayout>
+    <ImageButton
+        android:id="@+id/popup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round"
+        android:layout_gravity="left"
+        android:padding="5dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="35dp"
+        android:src="@drawable/ic_more_vert_black_24dp" />
+</FrameLayout>

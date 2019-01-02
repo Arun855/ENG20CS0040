@@ -7,10 +7,16 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -19,12 +25,46 @@ public class LoginActivity extends AppCompatActivity {
     TextView loginTv;
     String username, password, name, usernameCheck, passwordCheck;
     SharedPreferences sharedPreferences;
+    LinearLayout linearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        Window w = getWindow(); // in Activity's onCreate() for instance
+        w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        linearLayout = findViewById(R.id.login_ll);
+        sharedPreferences = getApplicationContext().getSharedPreferences("myPref", MODE_PRIVATE);
+        final SharedPreferences.Editor editor = sharedPreferences.edit();
+        int darkTheme=sharedPreferences.getInt("darkTheme",0);
+        if(darkTheme==1)
+        {//change theme to dark.
+            linearLayout.setBackgroundResource(R.drawable.gradientdark);
+        }
+        else if(darkTheme==2){
+            Calendar c=Calendar.getInstance();
+            SimpleDateFormat df = new SimpleDateFormat("HH");
+            String time=df.format(c.getTime());
+            int check=Integer.parseInt(time);
+            if(5<=check&&check<11){
+                linearLayout.setBackgroundResource(R.drawable.gradientmorning);
+            }
+            else if(11<=check&&check<16){
+                linearLayout.setBackgroundResource(R.drawable.gradientnoon);
+            }
+            else if(16<=check&&check<19){
+                linearLayout.setBackgroundResource(R.drawable.gradientevening);
+            }
+            else{
+                linearLayout.setBackgroundResource(R.drawable.gradientnight);
+            }
 
+
+        }
+        else{
+            //set theme bright.
+            linearLayout.setBackgroundResource(R.drawable.gradient);
+        }
         usernameEt=findViewById(R.id.user_et);
         passwordEt=findViewById(R.id.pass_et);
         newPasswordEt=findViewById(R.id.newpass_et);
@@ -33,8 +73,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton=findViewById(R.id.login_b);
         clearButton=findViewById(R.id.clear_b);
         newPasswordEt.setVisibility(View.GONE);
-        sharedPreferences = getApplicationContext().getSharedPreferences("myPref", MODE_PRIVATE);
-        final SharedPreferences.Editor editor = sharedPreferences.edit();
+
 
 
         username = sharedPreferences.getString("username", null);

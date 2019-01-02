@@ -6,8 +6,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mysterium.a1pra.helpinghand.R;
@@ -20,6 +22,7 @@ public class NotesViewHolder extends RecyclerView.ViewHolder {
     private String title, content;
     private EditText noteTitleET, noteContentET;
     SharedPreferences sharedPreferences;
+    LinearLayout viewLinearLayout;
     Context applicationContext = MyNotesActivity.getContextOfApplication();
 
     public ArrayList<String> getDB(ArrayList<String> arrayList, int length, String category)
@@ -62,7 +65,7 @@ public class NotesViewHolder extends RecyclerView.ViewHolder {
         noteTitleET=itemView.findViewById(R.id.et_card_title);
         noteContentET=itemView.findViewById(R.id.et_card_content);
         saveNoteB=itemView.findViewById(R.id.btn_saveNote);
-
+        viewLinearLayout=itemView.findViewById(R.id.notes_ll);
     }
 
     public void populate(NotesModel noteItem, final int position){
@@ -82,6 +85,9 @@ public class NotesViewHolder extends RecyclerView.ViewHolder {
         editNoteB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                InputMethodManager imm = (InputMethodManager)applicationContext.getSystemService(applicationContext.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
                 noteTitleTV.setVisibility(View.GONE);
                 noteTitleET.setVisibility(View.VISIBLE);
 
@@ -91,53 +97,60 @@ public class NotesViewHolder extends RecyclerView.ViewHolder {
                 editNoteB.setVisibility(View.GONE);
                 saveNoteB.setVisibility(View.VISIBLE);
 
+                noteTitleET.setFocusableInTouchMode(true);
+                noteTitleET.requestFocus();
 
+                saveNoteB.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ArrayList<String> editList=new ArrayList<>();
+                        int length=sharedPreferences.getInt("Length",0);
+
+                        editList=getDB(editList,length,"title");
+                        if(noteTitleET.getText().toString().isEmpty())
+                        {
+                            editList.set(position, noteTitleET.getHint().toString());
+                        }
+                        else {editList.set(position, noteTitleET.getText().toString());}
+                        updateDB(editList,"title");
+
+                        editList.clear();
+
+                        editList=getDB(editList,length,"content");
+                        if(noteContentET.getText().toString().isEmpty())
+                        {
+                            editList.set(position, noteContentET.getHint().toString());
+                        }
+                        else {editList.set(position, noteContentET.getText().toString());}
+                        updateDB(editList,"content");
+
+
+                        editor.putInt("Length",editList.size());
+                        editor.commit();
+
+                        MyNotesActivity.activity.recreate();
+
+                        InputMethodManager imm = (InputMethodManager)applicationContext.getSystemService(applicationContext.INPUT_METHOD_SERVICE);
+
+                        imm.hideSoftInputFromWindow(viewLinearLayout.getWindowToken(), 0);
+
+                        noteTitleTV.setVisibility(View.VISIBLE);
+                        noteTitleET.setVisibility(View.GONE);
+
+                        noteContentTV.setVisibility(View.VISIBLE);
+                        noteContentET.setVisibility(View.GONE);
+
+                        editNoteB.setVisibility(View.VISIBLE);
+                        saveNoteB.setVisibility(View.GONE);
+
+
+
+                    }
+                });
             }
         });
 
-        saveNoteB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ArrayList<String> editList=new ArrayList<>();
-                int length=sharedPreferences.getInt("Length",0);
 
-                editList=getDB(editList,length,"title");
-                if(noteTitleET.getText().toString().isEmpty())
-                {
-                    editList.set(position, noteTitleET.getHint().toString());
-                }
-                else {editList.set(position, noteTitleET.getText().toString());}
-                updateDB(editList,"title");
-
-                editList.clear();
-
-                editList=getDB(editList,length,"content");
-                if(noteContentET.getText().toString().isEmpty())
-                {
-                    editList.set(position, noteContentET.getHint().toString());
-                }
-                else {editList.set(position, noteContentET.getText().toString());}
-                updateDB(editList,"content");
-
-
-                editor.putInt("Length",editList.size());
-                editor.commit();
-
-                MyNotesActivity.activity.recreate();
-
-                noteTitleTV.setVisibility(View.VISIBLE);
-                noteTitleET.setVisibility(View.GONE);
-
-                noteContentTV.setVisibility(View.VISIBLE);
-                noteContentET.setVisibility(View.GONE);
-
-                editNoteB.setVisibility(View.VISIBLE);
-                saveNoteB.setVisibility(View.GONE);
-
-
-
-            }
-        });
 
 
         deleteNoteB.setOnClickListener(new View.OnClickListener() {

@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:weightSum="9.5"
+    android:id="@+id/settings_ll"
+    tools:context=".SettingsActivity">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        tools:context=".SettingsActivity">
+
+
+        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_view_welcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="35dp"
+            card_view:cardBackgroundColor="#55ffffff"
+            card_view:cardCornerRadius="10dp"
+            card_view:cardElevation="0dp"
+            card_view:contentPadding="1dp">
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="9dp"
+                android:orientation="vertical"
+                tools:context=".SettingsActivity">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="7dp"
+                    android:layout_marginTop="7dp"
+                    android:gravity="center_horizontal"
+                    android:paddingBottom="15dp"
+                    android:text="Settings"
+                    android:textSize="30sp" />
+
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2" />
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:orientation="vertical"
+        tools:context=".SettingsActivity">
+
+        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="15dp"
+            card_view:cardBackgroundColor="#55ffffff"
+            card_view:cardCornerRadius="10dp"
+            card_view:cardElevation="0dp"
+            card_view:contentPadding="3dp">
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="9dp"
+                android:orientation="vertical"
+                tools:context=".SettingsActivity">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center_horizontal"
+                        android:paddingVertical="15dp"
+                        android:paddingEnd="15dp"
+                        android:text="Edit Details"
+                        android:textAlignment="viewStart"
+                        android:textSize="22sp" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="25" />
+
+                    <ImageButton
+                        android:id="@+id/edit_b"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/round"
+                        android:padding="10dp"
+                        android:src="@drawable/ic_edit_black_24dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center_horizontal"
+                        android:paddingVertical="15dp"
+                        android:paddingEnd="15dp"
+                        android:text="Dark Mode"
+                        android:textAlignment="viewStart"
+                        android:textSize="22sp" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="25" />
+
+                    <Button
+                        android:id="@+id/dark_b"
+                        android:layout_width="44dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/round"
+                        android:text="OFF"
+                        android:textColor="#88000000" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center_horizontal"
+                        android:paddingVertical="15dp"
+                        android:paddingEnd="15dp"
+                        android:text="Theme Cycle"
+                        android:textAlignment="viewStart"
+                        android:textSize="22sp" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="25" />
+
+                    <Button
+                        android:id="@+id/cycle_b"
+                        android:layout_width="44dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/round"
+                        android:text="OFF"
+                        android:textColor="#88000000"/>
+                </LinearLayout>
+
+
+
+
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+</LinearLayout>

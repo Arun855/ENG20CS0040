@@ -7,32 +7,35 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewAnimationUtils;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.FrameLayout;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+
+import com.mysterium.a1pra.helpinghand.HomeActivity;
 import com.mysterium.a1pra.helpinghand.R;
 
 public class MyNotesActivity extends AppCompatActivity {
 
     FloatingActionButton newEntry;
     RecyclerView recyclerView;
+    FrameLayout frameLayout;
     SharedPreferences sharedPreferences;
-    CoordinatorLayout fabContainer;
-    ConstraintLayout backG;
     public static Context contextOfApplication;
     public static Activity activity = null;
 
-
+    //Function created by Prabhutva Agrawal
     public ArrayList<String> getDB(ArrayList<String> arrayList, int length, String category) {
         sharedPreferences = this.getSharedPreferences("myPref", MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -45,7 +48,7 @@ public class MyNotesActivity extends AppCompatActivity {
         return arrayList;
 
     }
-
+    //Function created by Prabhutva Agrawal
     public void updateDB(ArrayList<String> arrayList, String category) {
         sharedPreferences = this.getSharedPreferences("myPref", MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -69,19 +72,48 @@ public class MyNotesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_notes);
+        Window w = getWindow(); // in Activity's onCreate() for instance
+        w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        sharedPreferences = getSharedPreferences("myPref", MODE_PRIVATE);
+        frameLayout = findViewById(R.id.background);
+        final SharedPreferences.Editor editor = sharedPreferences.edit();
+        int darkTheme=sharedPreferences.getInt("darkTheme",0);
+        if(darkTheme==1)
+        {//change theme to dark.
+            frameLayout.setBackgroundResource(R.drawable.gradientdark);
+        }
+        else if(darkTheme==2){
+            Calendar c=Calendar.getInstance();
+            SimpleDateFormat df = new SimpleDateFormat("HH");
+            String time=df.format(c.getTime());
+            int check=Integer.parseInt(time);
+            if(5<=check&&check<11){
+                frameLayout.setBackgroundResource(R.drawable.gradientmorning);
+            }
+            else if(11<=check&&check<16){
+                frameLayout.setBackgroundResource(R.drawable.gradientnoon);
+            }
+            else if(16<=check&&check<19){
+                frameLayout.setBackgroundResource(R.drawable.gradientevening);
+            }
+            else{
+                frameLayout.setBackgroundResource(R.drawable.gradientnight);
+            }
+
+
+        }
+        else{
+            //set theme bright.
+            frameLayout.setBackgroundResource(R.drawable.gradient);
+        }
         recyclerView = findViewById(R.id.rv);
         newEntry = findViewById(R.id.fab_create);
-        fabContainer = findViewById(R.id.view_fab_container);
-        backG = findViewById(R.id.background);
-        //final int cx=fabContainer.getRight();
-        //final int cy=fabContainer.getBottom();
-        //final float endRad=(float)Math.hypot(cx,cy);
+
 
         contextOfApplication = getApplicationContext();
         activity = this;
 
-        sharedPreferences = getApplicationContext().getSharedPreferences("myPref", MODE_PRIVATE);
-        final SharedPreferences.Editor editor = sharedPreferences.edit();
+
 
 
         ArrayList<String> titleList = new ArrayList();
@@ -121,6 +153,21 @@ public class MyNotesActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent msg) {
+
+        switch(keyCode) {
+            case(KeyEvent.KEYCODE_BACK):
+                Intent a1_intent = new Intent(this, HomeActivity.class);
+                startActivity(a1_intent);
+                finish();
+                return true;
+
+
+
+        }
+        return false;
     }
 }
 

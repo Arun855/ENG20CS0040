@@ -10,19 +10,27 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.View;
 import android.support.design.widget.FloatingActionButton;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.FrameLayout;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
+import com.mysterium.a1pra.helpinghand.HomeActivity;
 import com.mysterium.a1pra.helpinghand.R;
 
 public class ExpensesActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     FloatingActionButton addB;
+    FrameLayout frameLayout;
     public static Activity activity = null;
     SharedPreferences sharedPreferences;
     public static Context contextOfApplication;
@@ -32,6 +40,7 @@ public class ExpensesActivity extends AppCompatActivity {
      * a loop to store data in the arraylist
      * category is used as a key so that we dont need to
      * create multiple functions.
+     * Created by Prabhutva Agrawal
      */
     public ArrayList<String> getDB(ArrayList<String> arrayList, int length, String category)
     {
@@ -117,6 +126,40 @@ public class ExpensesActivity extends AppCompatActivity {
       */
 
         setContentView(R.layout.activity_expenses);
+        Window w = getWindow(); // in Activity's onCreate() for instance
+        w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+
+        frameLayout = findViewById(R.id.expenses_ll);
+        int darkTheme=sharedPreferences.getInt("darkTheme",0);
+        if(darkTheme==1)
+        {//change theme to dark.
+            frameLayout.setBackgroundResource(R.drawable.gradientdark);
+        }
+        else if(darkTheme==2){
+            Calendar c=Calendar.getInstance();
+            SimpleDateFormat df = new SimpleDateFormat("HH");
+            String time=df.format(c.getTime());
+            int check=Integer.parseInt(time);
+            if(5<=check&&check<11){
+                frameLayout.setBackgroundResource(R.drawable.gradientmorning);
+            }
+            else if(11<=check&&check<16){
+                frameLayout.setBackgroundResource(R.drawable.gradientnoon);
+            }
+            else if(16<=check&&check<19){
+                frameLayout.setBackgroundResource(R.drawable.gradientevening);
+            }
+            else{
+                frameLayout.setBackgroundResource(R.drawable.gradientnight);
+            }
+
+
+        }
+        else{
+            //set theme bright.
+            frameLayout.setBackgroundResource(R.drawable.gradient);
+        }
+
         recyclerView = findViewById(R.id.expensesRV);
         addB= findViewById(R.id.expenses_add_b);
 
@@ -134,5 +177,20 @@ public class ExpensesActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent msg) {
+
+        switch(keyCode) {
+            case(KeyEvent.KEYCODE_BACK):
+                Intent a1_intent = new Intent(this, HomeActivity.class);
+                startActivity(a1_intent);
+                finish();
+                return true;
+
+
+
+        }
+        return false;
     }
 }

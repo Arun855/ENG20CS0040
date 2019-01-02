@@ -109,6 +109,7 @@ public class ExpensesViewHolder extends RecyclerView.ViewHolder{
             @Override
             public void onClick(View v) {
 
+
                 InputMethodManager imm = (InputMethodManager)applicationContext.getSystemService(applicationContext.INPUT_METHOD_SERVICE);
                 imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
                 priceTv.setVisibility(View.GONE);
@@ -121,6 +122,9 @@ public class ExpensesViewHolder extends RecyclerView.ViewHolder{
                 remarksEt.setVisibility(View.VISIBLE);
                 editB.setVisibility(View.GONE);
                 saveB.setVisibility(View.VISIBLE);
+
+                priceEt.setFocusableInTouchMode(true);
+                priceEt.requestFocus();
 
                 saveB.setOnClickListener(new View.OnClickListener() {
                     @Override

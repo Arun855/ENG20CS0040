@@ -9,14 +9,18 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.mysterium.a1pra.helpinghand.R;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class NewReminderActivity extends AppCompatActivity {
@@ -33,12 +37,45 @@ public class NewReminderActivity extends AppCompatActivity {
     int n;
     String reminder;
     DatePicker datePicker;
+    LinearLayout linearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_reminder);
+        Window w = getWindow(); // in Activity's onCreate() for instance
+        w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        linearLayout=findViewById(R.id.new_rem_ll);
+        sharedPreferences = getSharedPreferences("myPref", MODE_PRIVATE);
+        int darkTheme=sharedPreferences.getInt("darkTheme",0);
+        if(darkTheme==1)
+        {//change theme to dark.
+            linearLayout.setBackgroundResource(R.drawable.gradientdark);
+        }
+        else if(darkTheme==2){
+            Calendar c=Calendar.getInstance();
+            SimpleDateFormat df = new SimpleDateFormat("HH");
+            String time=df.format(c.getTime());
+            int check=Integer.parseInt(time);
+            if(5<=check&&check<11){
+                linearLayout.setBackgroundResource(R.drawable.gradientmorning);
+            }
+            else if(11<=check&&check<16){
+                linearLayout.setBackgroundResource(R.drawable.gradientnoon);
+            }
+            else if(16<=check&&check<19){
+                linearLayout.setBackgroundResource(R.drawable.gradientevening);
+            }
+            else{
+                linearLayout.setBackgroundResource(R.drawable.gradientnight);
+            }
 
+
+        }
+        else{
+            //set theme bright.
+            linearLayout.setBackgroundResource(R.drawable.gradient);
+        }
 
         timePicker=findViewById(R.id.tp);
         btn1=findViewById(R.id.set);
@@ -108,7 +145,7 @@ public class NewReminderActivity extends AppCompatActivity {
                     Intent intent1=new Intent( NewReminderActivity.this,RemindersActivity.class);
 
                     startActivity(intent1);}
-
+                    finish();
 
 
                 if(n==2){
@@ -158,7 +195,7 @@ public class NewReminderActivity extends AppCompatActivity {
                     Intent intent1=new Intent(NewReminderActivity.this,RemindersActivity.class);
 
                     startActivity(intent1);
-
+                    finish();
 
 
 
@@ -213,7 +250,7 @@ public class NewReminderActivity extends AppCompatActivity {
                     Intent intent1=new Intent(NewReminderActivity.this,RemindersActivity.class);
 
                     startActivity(intent1);
-
+                    finish();
 
 
 
@@ -268,7 +305,7 @@ public class NewReminderActivity extends AppCompatActivity {
                     Intent intent1=new Intent(NewReminderActivity.this,RemindersActivity.class);
 
                     startActivity(intent1);
-
+                    finish();
 
 
 
