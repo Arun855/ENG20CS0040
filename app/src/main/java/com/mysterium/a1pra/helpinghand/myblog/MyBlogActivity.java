@@ -1,8 +1,4 @@
-package com.mysterium.a1pra.helpinghand.mynotes;
-/*
- * Author: Pratik Bhirud
- * Edited and Debugged by Prabhutva Agrawal
- */
+package com.mysterium.a1pra.helpinghand.myblog;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,19 +12,19 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.mysterium.a1pra.helpinghand.HomeActivity;
 import com.mysterium.a1pra.helpinghand.R;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class MyNotesActivity extends AppCompatActivity {
+public class MyBlogActivity extends AppCompatActivity {
 
 	public static Context contextOfApplication;
 	public static Activity activity = null;
@@ -36,44 +32,17 @@ public class MyNotesActivity extends AppCompatActivity {
 	RecyclerView recyclerView;
 	FrameLayout frameLayout;
 	SharedPreferences sharedPreferences;
+	LinearLayoutManager mLayoutManager;
+	private DatabaseReference reference;
 
 	public static Context getContextOfApplication() {
 		return contextOfApplication;
 	}
 
-	//Function created by Prabhutva Agrawal
-	public ArrayList<String> getDB(ArrayList<String> arrayList, int length, String category) {
-		sharedPreferences = this.getSharedPreferences("myPref", MODE_PRIVATE);
-		final SharedPreferences.Editor editor = sharedPreferences.edit();
-		for (int i = 0; i < length; i++) {
-			String key = category + i;
-			String listItem = sharedPreferences.getString(key, null);
-			arrayList.add(listItem);
-		}
-		editor.commit();
-		return arrayList;
-
-	}
-
-	//Function created by Prabhutva Agrawal
-	public void updateDB(ArrayList<String> arrayList, String category) {
-		sharedPreferences = this.getSharedPreferences("myPref", MODE_PRIVATE);
-		final SharedPreferences.Editor editor = sharedPreferences.edit();
-		String[] array = new String[arrayList.size()];
-		arrayList.toArray(array);
-		for (int i = 0; i < array.length; i++) {
-			String key = category + i;
-			editor.putString(key, array[i]);
-			editor.commit();
-		}
-		editor.putInt("Length", array.length);
-		editor.commit();
-	}
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_my_notes);
+		setContentView(R.layout.activity_my_blog);
 		Window w = getWindow(); // in Activity's onCreate() for instance
 		w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 		sharedPreferences = getSharedPreferences("myPref", MODE_PRIVATE);
@@ -110,7 +79,9 @@ public class MyNotesActivity extends AppCompatActivity {
 		activity = this;
 
 
-		ArrayList<String> titleList = new ArrayList();
+
+
+		/*ArrayList<String> titleList = new ArrayList();
 		ArrayList<String> contentList = new ArrayList();
 
 		int length = sharedPreferences.getInt("Length", 0);
@@ -130,21 +101,24 @@ public class MyNotesActivity extends AppCompatActivity {
 			data.add(new NotesModel(title[i], content[i]));
 		}
 
-		List<NotesModel> notes = data;
-
-		NotesAdapter adapter = new NotesAdapter(notes);
+		List<BlogModel> blogs = data;*/
+		reference = FirebaseDatabase.getInstance().getReference();
+		BlogAdapter adapter = new BlogAdapter();
 		recyclerView.setAdapter(adapter);
 		recyclerView.setHasFixedSize(true);
 		RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-		recyclerView.setLayoutManager(layoutManager);
+		LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+		mLayoutManager.setReverseLayout(true);
+		mLayoutManager.setStackFromEnd(true);
+		recyclerView.setLayoutManager(mLayoutManager);
 
 
 		newEntry.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				Intent intent = new Intent(MyNotesActivity.this, NewNoteActivity.class);
+				Intent intent = new Intent(MyBlogActivity.this, NewBlogActivity.class);
 				startActivity(intent);
-				finish();
+
 			}
 		});
 	}
@@ -163,6 +137,6 @@ public class MyNotesActivity extends AppCompatActivity {
 		}
 		return false;
 	}
+
+
 }
-
-

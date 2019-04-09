@@ -1,15 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--Author: Prabhutva Agrawal-->
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    >
+<?xml version="1.0" encoding="utf-8"?><!--Author: Prabhutva Agrawal-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="About App"
+    <item
         android:id="@+id/about"
-        />
-    <item android:title="Settings"
+        android:title="About App" />
+    <item
         android:id="@+id/settings"
-        />
-    <item android:title="Lock"
+        android:title="Settings" />
+    <item
         android:id="@+id/lock"
-        />
+        android:title="Lock" />
 </menu>

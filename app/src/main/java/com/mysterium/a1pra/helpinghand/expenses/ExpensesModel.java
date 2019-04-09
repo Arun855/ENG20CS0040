@@ -1,48 +1,48 @@
 package com.mysterium.a1pra.helpinghand.expenses;
+
 /*
  * Author: Prabhutva Agrawal
  */
 public class ExpensesModel {
-    private String itemName,dateAdded,remarks,price;
+	private String itemName, dateAdded, remarks, price;
 
-    public ExpensesModel(String itemName,String price, String dateAdded,String remarks)
-    {
-        this.dateAdded=dateAdded;
-        this.price=price;
-        this.itemName=itemName;
-        this.remarks=remarks;
-    }
+	public ExpensesModel(String itemName, String price, String dateAdded, String remarks) {
+		this.dateAdded = dateAdded;
+		this.price = price;
+		this.itemName = itemName;
+		this.remarks = remarks;
+	}
 
-    public String getDateAdded() {
-        return dateAdded;
-    }
+	public String getDateAdded() {
+		return dateAdded;
+	}
 
-    public String getItemName() {
-        return itemName;
-    }
+	public void setDateAdded(String dateAdded) {
+		this.dateAdded = dateAdded;
+	}
 
-    public String getPrice() {
-        return price;
-    }
+	public String getItemName() {
+		return itemName;
+	}
 
-    public String getRemarks() {
-        return remarks;
-    }
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
+	}
 
-    public void setDateAdded(String dateAdded) {
-        this.dateAdded = dateAdded;
-    }
+	public String getPrice() {
+		return price;
+	}
 
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
-    }
+	public void setPrice(String price) {
+		this.price = price;
+	}
 
-    public void setPrice(String price) {
-        this.price = price;
-    }
+	public String getRemarks() {
+		return remarks;
+	}
 
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
-    }
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
 }
 

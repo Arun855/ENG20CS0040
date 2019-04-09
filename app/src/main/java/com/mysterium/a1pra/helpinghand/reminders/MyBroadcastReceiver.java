@@ -24,87 +24,80 @@ import java.util.Calendar;
 
 public class MyBroadcastReceiver extends BroadcastReceiver {
 
-    Button btn1;
-    Button btn2;
-    Button btn3;
-    Button btn4;
-    TextView tv1;
-    TextView tv2;
-    TextView tv3;
-    TextView tv4;
-    TextView td1;
-    TextView td2;
-    TextView td3;
-    TextView td4;
-    TextView dt1;
-    TextView dt2;
-    TextView dt3;
-    TextView dt4;
+	Button btn1;
+	Button btn2;
+	Button btn3;
+	Button btn4;
+	TextView tv1;
+	TextView tv2;
+	TextView tv3;
+	TextView tv4;
+	TextView td1;
+	TextView td2;
+	TextView td3;
+	TextView td4;
+	TextView dt1;
+	TextView dt2;
+	TextView dt3;
+	TextView dt4;
 
 
-    String reminder;
-    Calendar cal=Calendar.getInstance();
+	String reminder;
+	Calendar cal = Calendar.getInstance();
 
-    SharedPreferences sharedPreferences;
-    int hour1;
-    int minute1;
-    int year;
-    int month=1;
-    int date;
-    @Override
-    public void onReceive(Context context, Intent intent) {
+	SharedPreferences sharedPreferences;
+	int hour1;
+	int minute1;
+	int year;
+	int month = 1;
+	int date;
 
-
-
-        Vibrator vibrator=(Vibrator)context.getSystemService(context.VIBRATOR_SERVICE);
-        vibrator.vibrate(2000);
-        String reminder =intent.getStringExtra("reminder");
-        CameraManager cameraManager = (CameraManager)context.getSystemService(Context.CAMERA_SERVICE);
+	@Override
+	public void onReceive(Context context, Intent intent) {
 
 
-        String channelId="default_channel_id";
-        String channelDescription="default channel";
-        NotificationManager notif=(NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-
-        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.O)
-        {
-            int importance =NotificationManager.IMPORTANCE_HIGH;
-            NotificationChannel notificationChannel;//=notif.getNotificationChannel(channelId);
-            notificationChannel=new NotificationChannel(channelId,channelDescription,importance);
-            notif.createNotificationChannel(notificationChannel);
+		Vibrator vibrator = (Vibrator) context.getSystemService(context.VIBRATOR_SERVICE);
+		vibrator.vibrate(2000);
+		String reminder = intent.getStringExtra("reminder");
+		CameraManager cameraManager = (CameraManager) context.getSystemService(Context.CAMERA_SERVICE);
 
 
-            Notification notify=new Notification.Builder
-                    (context).setContentTitle("Reminder").setContentText(reminder).
-                    setContentTitle("Reminder").setSmallIcon(R.drawable.ic_launcher_foreground).setChannelId(channelId).build();
-            int notificationID=(int)System.currentTimeMillis();
-            notify.flags |= Notification.FLAG_AUTO_CANCEL;
+		String channelId = "default_channel_id";
+		String channelDescription = "default channel";
+		NotificationManager notif = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+			int importance = NotificationManager.IMPORTANCE_HIGH;
+			NotificationChannel notificationChannel;//=notif.getNotificationChannel(channelId);
+			notificationChannel = new NotificationChannel(channelId, channelDescription, importance);
+			notif.createNotificationChannel(notificationChannel);
 
 
-
-            notif.notify(notificationID, notify);
-
-
-
-        }
-        else{
+			Notification notify = new Notification.Builder
+					(context).setContentTitle("Reminder").setContentText(reminder).
+					setContentTitle("Reminder").setSmallIcon(R.drawable.ic_launcher_foreground).setChannelId(channelId).build();
+			int notificationID = (int) System.currentTimeMillis();
+			notify.flags |= Notification.FLAG_AUTO_CANCEL;
 
 
-            Notification notify=new Notification.Builder
-                    (context).setContentTitle("Reminder").setContentText(reminder).
-                    setContentTitle("Reminder").setSmallIcon(R.drawable.ic_launcher_foreground).build();
-            int notificationID=(int)System.currentTimeMillis();
-            notify.flags |= Notification.FLAG_AUTO_CANCEL;
+			notif.notify(notificationID, notify);
 
 
-
-            notif.notify(notificationID, notify);
-
+		} else {
 
 
+			Notification notify = new Notification.Builder
+					(context).setContentTitle("Reminder").setContentText(reminder).
+					setContentTitle("Reminder").setSmallIcon(R.drawable.ic_launcher_foreground).build();
+			int notificationID = (int) System.currentTimeMillis();
+			notify.flags |= Notification.FLAG_AUTO_CANCEL;
 
-        }
-        // please ignore the comments
+
+			notif.notify(notificationID, notify);
+
+
+		}
+		// please ignore the comments
 
 
         /*int importance =NotificationManager.IMPORTANCE_HIGH;
@@ -127,40 +120,31 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
         */
 
 
+		try {
 
+			String cameraId = cameraManager.getCameraIdList()[0];
+			String myString = "000011000011000011000011000011";
 
+			long blinkDelay = 50;
+			for (int i = 0; i < myString.length(); i++) {
+				if (myString.charAt(i) == '0') {
+					cameraManager.setTorchMode(cameraId, true);
+				} else {
 
+					cameraManager.setTorchMode(cameraId, false);
 
-        try {
+				}
+				try {
+					Thread.sleep(blinkDelay);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (CameraAccessException e) {
+		}
+		vibrator.vibrate(300);
 
-            String cameraId = cameraManager.getCameraIdList()[0];
-            String myString = "000011000011000011000011000011";
-
-            long blinkDelay = 50;
-            for (int i = 0; i < myString.length(); i++) {
-                if (myString.charAt(i) == '0') {
-                    cameraManager.setTorchMode(cameraId, true);
-                }
-                else {
-
-                    cameraManager.setTorchMode(cameraId, false);
-
-                }
-                try {
-                    Thread.sleep(blinkDelay);
-                }catch (InterruptedException e){
-                    e.printStackTrace();
-                }
-            }
-        }catch(CameraAccessException e){}
-        vibrator.vibrate(300);
-
-    }
-
-
-
-
-
+	}
 
 
 }

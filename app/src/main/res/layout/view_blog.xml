@@ -1,17 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?><!--Author: Prabhutva Agrawal-->
+<?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/notes_ll"
+    android:id="@+id/blog_ll"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-
-    >
+    android:orientation="vertical">
 
 
     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/cv_1"
+        android:id="@+id/cvb_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -29,49 +27,46 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_title"
+                android:id="@+id/blog_tv_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:paddingBottom="15dp"
+                android:paddingBottom="5dp"
                 android:textAlignment="center"
-                android:textColor="#ff23aa"
-                android:textSize="36sp" />
+                android:textColor="#88000000"
+                android:textSize="28sp" />
 
-            <EditText
-                android:id="@+id/et_card_title"
+
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginBottom="10dp"
-                android:background="@android:color/transparent"
-                android:paddingBottom="15dp"
-                android:singleLine="true"
-                android:textAlignment="center"
-                android:textColor="#ff23aa"
-                android:textSize="36sp"
+                card_view:cardBackgroundColor="#55ffffff"
+                card_view:cardCornerRadius="10dp"
+                card_view:cardElevation="0dp">
+
+                <ImageView
+                    android:id="@+id/blog_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:scaleType="fitCenter" />
+            </androidx.cardview.widget.CardView>
+
+
+            <Button
+                android:id="@+id/btn_addImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:layout_weight="1"
+                android:background="@drawable/round"
+                android:text="ADD NEW IMAGE"
+                android:textColor="#88000000"
+                android:textSize="16dp"
                 android:visibility="gone" />
 
-            <TextView
-                android:id="@+id/tv_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:paddingBottom="15dp"
-                android:textAlignment="viewStart"
-                android:textColor="#7711aa"
-                android:textSize="24sp" />
-
-            <EditText
-                android:id="@+id/et_card_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:background="@android:color/transparent"
-                android:paddingBottom="15dp"
-                android:textAlignment="viewStart"
-                android:textColor="#7711aa"
-                android:textSize="24sp"
-                android:visibility="gone" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -81,7 +76,7 @@
                 android:weightSum="2">
 
                 <Button
-                    android:id="@+id/btn_editNote"
+                    android:id="@+id/btn_editBlog"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="4dp"
@@ -93,7 +88,7 @@
                     android:textSize="16dp" />
 
                 <Button
-                    android:id="@+id/btn_saveNote"
+                    android:id="@+id/btn_saveBlog"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="4dp"
@@ -106,7 +101,7 @@
                     android:visibility="gone" />
 
                 <Button
-                    android:id="@+id/btn_deleteNote"
+                    android:id="@+id/btn_deleteBlog"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="4dp"

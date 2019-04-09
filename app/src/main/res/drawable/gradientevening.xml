@@ -1,13 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--Author: Prabhutva Agrawal-->
+<?xml version="1.0" encoding="utf-8"?><!--Author: Prabhutva Agrawal-->
 
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle"
-    >
+    android:shape="rectangle">
     <gradient
 
-        android:endColor="#b8cbb8"
+        android:angle="45"
         android:centerColor="#b465da"
-        android:startColor="#ee609c"
-        android:angle="45" />background-image: linear-gradient(to right, #b8cbb8 0%, #b8cbb8 0%, #b465da 0%, #cf6cc9 33%, #ee609c 66%, #ee609c 100%);
+        android:endColor="#b8cbb8"
+        android:startColor="#ee609c" />background-image: linear-gradient(to right, #b8cbb8 0%, #b8cbb8 0%,
+    #b465da 0%, #cf6cc9 33%, #ee609c 66%, #ee609c 100%);
 </shape>

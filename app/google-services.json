@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "116281551460",
+    "firebase_url": "https://student-diary-mac.firebaseio.com",
+    "project_id": "student-diary-mac",
+    "storage_bucket": "student-diary-mac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:116281551460:android:01ebcb9e5087ba3f",
+        "android_client_info": {
+          "package_name": "com.mysterium.a1pra.helpinghand"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "116281551460-v4i6gh2op4iclnqje6re2tf2l0ufajmi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mysterium.a1pra.helpinghand",
+            "certificate_hash": "954c25e51ac2cbcb30b400a815047bb74e3f3b24"
+          }
+        },
+        {
+          "client_id": "116281551460-ctdbofsafv13l1n8ijh0jnu68gk3ei3b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBje-kLQg9RVuojCBrZaHQZa9HFo0iSgv8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "116281551460-ctdbofsafv13l1n8ijh0jnu68gk3ei3b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

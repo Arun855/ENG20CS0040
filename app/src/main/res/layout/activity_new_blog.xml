@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><!--Author: Pratik Bhirud
-    UI: Prabhutva Agrawal-->
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/new_note"
+    android:id="@+id/new_blog"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -35,13 +34,14 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/newblogtitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="7dp"
                     android:layout_marginTop="7dp"
                     android:gravity="center_horizontal"
                     android:paddingBottom="15dp"
-                    android:text="New Note"
+                    android:text="New Blog"
                     android:textSize="30sp" />
 
             </LinearLayout>
@@ -76,28 +76,34 @@
 
 
                 <EditText
-                    android:id="@+id/et_title"
+                    android:id="@+id/add_blog_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
                     android:gravity="center"
-                    android:hint="Note Title"
+                    android:hint="Blog Title"
                     android:singleLine="true" />
 
-                <EditText
-                    android:id="@+id/et_content"
+
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="118dp"
-                    android:layout_marginHorizontal="10dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_marginBottom="10dp"
-                    android:layout_weight="7"
-                    android:background="@android:color/transparent"
-                    android:gravity="center_horizontal"
-                    android:hint="Note"
-                    android:textAlignment="textStart"
-                    android:textSize="22sp" />
+                    card_view:cardBackgroundColor="#55ffffff"
+                    card_view:cardCornerRadius="10dp"
+                    card_view:cardElevation="0dp">
+
+                    <ImageView
+                        android:id="@+id/imgView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:gravity="center_horizontal"
+                        android:scaleType="fitCenter"
+                        android:visibility="gone" />
+                </androidx.cardview.widget.CardView>
 
                 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="match_parent"
@@ -106,7 +112,7 @@
                     android:weightSum="2">
 
                     <Button
-                        android:id="@+id/save_note_b"
+                        android:id="@+id/btn_publish_blog"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -115,12 +121,27 @@
                         android:layout_weight="1"
                         android:background="@drawable/round"
                         android:imeOptions="actionDone"
-                        android:text="Save"
+                        android:text="Publish"
+                        android:textColor="#88000000"
+                        android:textSize="16dp"
+                        android:visibility="gone" />
+
+                    <Button
+                        android:id="@+id/btn_pick_image_blog"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginRight="4dp"
+                        android:layout_marginBottom="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/round"
+                        android:imeOptions="actionDone"
+                        android:text="Pick Image"
                         android:textColor="#88000000"
                         android:textSize="16dp" />
 
                     <Button
-                        android:id="@+id/clear_note_b"
+                        android:id="@+id/btn_clear_blog"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -132,20 +153,7 @@
                         android:textColor="#88000000"
                         android:textSize="16dp" />
                 </LinearLayout>
-                <!--<android.support.design.widget.CoordinatorLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom">
 
-                    <android.support.design.widget.FloatingActionButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/fab_save"
-                        app:fabSize="normal"
-                        android:layout_gravity="bottom|right"
-                        android:layout_margin="16dp"
-                        android:src="@drawable/ic_save_white_24dp" />
-                </android.support.design.widget.CoordinatorLayout>-->
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </LinearLayout>
