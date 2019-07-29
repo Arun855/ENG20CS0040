@@ -39,17 +39,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class NewBlogActivity extends AppCompatActivity {
 	private final int PICK_IMAGE_REQUEST = 71;
-	EditText addBlogTitle;
+	EditText addBlogTitle, addBlogDesc;
 	TextView title;
 	SharedPreferences sharedPreferences;
 	Button publishBlog, pickImageBlog, clearBlog;
-	String newBlogTitle, key, url;
+	String newBlogTitle, key, url, user, date, newBlogDescription;
 	Uri newBlogURL;
 	LinearLayout linearLayout;
 	View newBlogScreen;
 	ImageView image;
 	StorageReference storageReference;
 	DatabaseReference mDatabase;
+	int fav=0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +87,7 @@ public class NewBlogActivity extends AppCompatActivity {
 
 
 		addBlogTitle = findViewById(R.id.add_blog_title);
+		addBlogDesc = findViewById(R.id.add_blog_desc);
 		publishBlog = findViewById(R.id.btn_publish_blog);
 		clearBlog = findViewById(R.id.btn_clear_blog);
 		pickImageBlog = findViewById(R.id.btn_pick_image_blog);
@@ -95,18 +97,34 @@ public class NewBlogActivity extends AppCompatActivity {
 
 		try {
 			newBlogTitle = getIntent().getStringExtra("blogtitle");
+			newBlogDescription = getIntent().getStringExtra("blogdesc");
 			key = getIntent().getStringExtra("blogkey");
 			url = getIntent().getStringExtra("blogurl");
+			fav = getIntent().getIntExtra("blogfav",0);
 			addBlogTitle.setText(newBlogTitle);
+			addBlogDesc.setText(newBlogDescription);
 			if (!(url.equals(null))) {
 				title.setText("Edit Blog");
 				image.setVisibility(View.VISIBLE);
 				Glide.with(NewBlogActivity.this).load(url).into(image);
 			}
 		} catch (Exception e) {
-			newBlogTitle = "";
-			url = "";
-			key = "";
+
+			try{
+				newBlogDescription = getIntent().getStringExtra("blogdesc");
+				addBlogDesc.setText(newBlogDescription);
+				newBlogTitle = "";
+				url = "";
+				key = "";
+				fav = 0;
+			}
+			catch (Exception e1) {
+				newBlogDescription = "";
+				newBlogTitle = "";
+				url = "";
+				key = "";
+				fav = 0;
+			}
 		}
 
 
@@ -131,6 +149,7 @@ public class NewBlogActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View v) {
 				addBlogTitle.setText("");
+				addBlogDesc.setText("");
 				image.setVisibility(View.GONE);
 				publishBlog.setVisibility(View.GONE);
 				pickImageBlog.setVisibility(View.VISIBLE);
@@ -142,6 +161,12 @@ public class NewBlogActivity extends AppCompatActivity {
 	private void uploadImage() {
 
 		newBlogTitle = addBlogTitle.getText().toString();
+		newBlogDescription = addBlogDesc.getText().toString();
+		user = sharedPreferences.getString("name",null);
+		Calendar c = Calendar.getInstance();
+		SimpleDateFormat df = new SimpleDateFormat("EEE, d MMM yy\nHH:mm:ss");
+		date = df.format(c.getTime());
+
 		if (newBlogURL != null && newBlogTitle != null) {
 			final ProgressDialog progressDialog = new ProgressDialog(this);
 			progressDialog.setTitle("Uploading...");
@@ -158,11 +183,17 @@ public class NewBlogActivity extends AppCompatActivity {
 								@Override
 								public void onSuccess(Uri uri) {
 									Uri downloaduri = uri;
+									String uriinstring = downloaduri.toString();
 									if (key.equals(null) || key.equals("")) {
 										key = mDatabase.child("blogs").push().getKey();
 									}
-									mDatabase.child("blogs").child(key).child("imageURL").setValue(downloaduri.toString());
+									mDatabase.child("blogs").child(key).child("imageUser").setValue(user);
+									mDatabase.child("blogs").child(key).child("imageDate").setValue(date);
+									mDatabase.child("blogs").child(key).child("imageIsFav").setValue(fav);
 									mDatabase.child("blogs").child(key).child("imageTitle").setValue(newBlogTitle);
+									mDatabase.child("blogs").child(key).child("imageDesc").setValue(newBlogDescription);
+									mDatabase.child("blogs").child(key).child("imageURL").setValue(uriinstring);
+
 
 								}
 							});
@@ -194,6 +225,7 @@ public class NewBlogActivity extends AppCompatActivity {
 
 	private void chooseImage() {
 		newBlogTitle = addBlogTitle.getText().toString();
+		newBlogDescription = addBlogDesc.getText().toString();
 		Intent intent = new Intent();
 		intent.setType("image/*");
 		intent.setAction(Intent.ACTION_GET_CONTENT);

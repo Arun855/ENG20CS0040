@@ -9,11 +9,14 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
 import com.mysterium.a1pra.helpinghand.HomeActivity;
 import com.mysterium.a1pra.helpinghand.R;
 
@@ -28,12 +31,17 @@ public class MyBlogActivity extends AppCompatActivity {
 
 	public static Context contextOfApplication;
 	public static Activity activity = null;
-	FloatingActionButton newEntry;
+	ImageView newEntry;
 	RecyclerView recyclerView;
 	FrameLayout frameLayout;
+	EditText description;
+	BlogAdapter adapter;
+	int fav;
+	FloatingActionButton post;
 	SharedPreferences sharedPreferences;
 	LinearLayoutManager mLayoutManager;
-	private DatabaseReference reference;
+	private ImageView favSelectButtonNo,favSelectButtonYes;
+	DatabaseReference mDatabase;
 
 	public static Context getContextOfApplication() {
 		return contextOfApplication;
@@ -43,6 +51,10 @@ public class MyBlogActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_blog);
+		post = findViewById(R.id.fab_post);
+		description = findViewById(R.id.et_blog_description);
+		favSelectButtonYes = findViewById(R.id.blog_fav_select_yes);
+		favSelectButtonNo = findViewById(R.id.blog_fav_select_no);
 		Window w = getWindow(); // in Activity's onCreate() for instance
 		w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 		sharedPreferences = getSharedPreferences("myPref", MODE_PRIVATE);
@@ -72,11 +84,26 @@ public class MyBlogActivity extends AppCompatActivity {
 			frameLayout.setBackgroundResource(R.drawable.gradient);
 		}
 		recyclerView = findViewById(R.id.rv);
-		newEntry = findViewById(R.id.fab_create);
+		newEntry = findViewById(R.id.button_create);
+		mDatabase = FirebaseDatabase.getInstance().getReference();
 
 
 		contextOfApplication = getApplicationContext();
 		activity = this;
+
+		fav=sharedPreferences.getInt("favSelect",0);
+		if(fav==0)
+		{
+			favSelectButtonNo.setVisibility(View.VISIBLE);
+			favSelectButtonYes.setVisibility(View.INVISIBLE);
+		}
+		else
+		{
+			favSelectButtonYes.setVisibility(View.VISIBLE);
+			favSelectButtonNo.setVisibility(View.INVISIBLE);
+		}
+
+
 
 
 
@@ -102,8 +129,8 @@ public class MyBlogActivity extends AppCompatActivity {
 		}
 
 		List<BlogModel> blogs = data;*/
-		reference = FirebaseDatabase.getInstance().getReference();
-		BlogAdapter adapter = new BlogAdapter();
+
+		adapter =new BlogAdapter(fav);
 		recyclerView.setAdapter(adapter);
 		recyclerView.setHasFixedSize(true);
 		RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
@@ -113,12 +140,70 @@ public class MyBlogActivity extends AppCompatActivity {
 		recyclerView.setLayoutManager(mLayoutManager);
 
 
+		favSelectButtonNo.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+
+				fav=1;
+
+
+				favSelectButtonNo.setVisibility(View.INVISIBLE);
+				favSelectButtonYes.setVisibility(View.VISIBLE);
+
+				editor.putInt("favSelect",1);
+				editor.commit();
+				adapter =new BlogAdapter(fav);
+				recyclerView.setAdapter(adapter);
+				recyclerView.setHasFixedSize(true);
+				RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+				LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+				mLayoutManager.setReverseLayout(true);
+				mLayoutManager.setStackFromEnd(true);
+				recyclerView.setLayoutManager(mLayoutManager);
+
+			}
+		});
+		favSelectButtonYes.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				fav=0;
+
+
+				favSelectButtonYes.setVisibility(View.INVISIBLE);
+				favSelectButtonNo.setVisibility(View.VISIBLE);
+
+				editor.putInt("favSelect",0);
+				editor.commit();
+				adapter =new BlogAdapter(fav);
+				recyclerView.setAdapter(adapter);
+				recyclerView.setHasFixedSize(true);
+				RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+				LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+				mLayoutManager.setReverseLayout(true);
+				mLayoutManager.setStackFromEnd(true);
+				recyclerView.setLayoutManager(mLayoutManager);
+			}
+		});
+
+
 		newEntry.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				Intent intent = new Intent(MyBlogActivity.this, NewBlogActivity.class);
+				intent.putExtra("blogdesc",description.getText().toString());
 				startActivity(intent);
 
+			}
+		});
+
+		post.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				//POST JUST A MESSAGE
+				//STORE IN FIREBASE
+				//DATACHANGE LISTENER
+
+				description.setText("");
 			}
 		});
 	}

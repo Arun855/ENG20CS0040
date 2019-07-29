@@ -36,6 +36,46 @@
                 android:textColor="#88000000"
                 android:textSize="28sp" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:weightSum="2.1"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/blog_tv_user"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/blog_tv_date"/>
+                <FrameLayout
+                    android:layout_width="24dp"
+                    android:layout_weight="0.1"
+                    android:layout_height="24dp">
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_weight="0.1"
+                        android:src="@drawable/ic_favorite_no_24dp"
+                        android:id="@+id/blog_fav_no"
+                        android:layout_height="24dp" />
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_weight="0.1"
+                        android:visibility="invisible"
+                        android:src="@drawable/ic_favorite_no_24dp"
+                        android:tint="#b81b47"
+                        android:id="@+id/blog_fav_yes"
+                        android:layout_height="24dp" />
+                </FrameLayout>
+
+
+
+            </LinearLayout>
+
+
+
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -54,6 +94,14 @@
                     android:scaleType="fitCenter" />
             </androidx.cardview.widget.CardView>
 
+            <TextView
+                android:id="@+id/blog_tv_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textAlignment="viewStart"
+                android:textColor="#88000000"
+                android:textSize="15sp" />
 
             <Button
                 android:id="@+id/btn_addImage"

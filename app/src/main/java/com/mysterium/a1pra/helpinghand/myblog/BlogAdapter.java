@@ -17,12 +17,15 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+
 public class BlogAdapter extends RecyclerView.Adapter<BlogViewHolder> implements ValueEventListener {
 
+	private int fav;
 	List<BlogModel> blogList = new ArrayList<>();
 	private DatabaseReference reference;
 
-	public BlogAdapter() {
+	public BlogAdapter(int fav) {
+		this.fav=fav;
 		blogList = new ArrayList<>();
 		reference = FirebaseDatabase.getInstance().getReference();
 		reference.addValueEventListener(this);
@@ -53,7 +56,11 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogViewHolder> implements
 	public void onDataChange(DataSnapshot dataSnapshot) {
 		blogList = new ArrayList<>();
 		for (DataSnapshot c : dataSnapshot.child("blogs").getChildren()) {
-			blogList.add(new BlogModel(c.getKey().toString(), c.child("imageTitle").getValue(String.class), c.child("imageURL").getValue(String.class)));
+			if(fav==1&&c.child("imageIsFav").getValue(Integer.class)==1) {
+				blogList.add(new BlogModel(c.getKey().toString(), c.child("imageUser").getValue(String.class), c.child("imageDate").getValue(String.class), c.child("imageTitle").getValue(String.class), c.child("imageURL").getValue(String.class), c.child("imageIsFav").getValue(Integer.class), c.child("imageDesc").getValue(String.class)));
+			}
+			else if(fav==0)
+				blogList.add(new BlogModel(c.getKey().toString(), c.child("imageUser").getValue(String.class), c.child("imageDate").getValue(String.class), c.child("imageTitle").getValue(String.class), c.child("imageURL").getValue(String.class), c.child("imageIsFav").getValue(Integer.class),c.child("imageDesc").getValue(String.class)));
 		}
 		notifyDataSetChanged();
 

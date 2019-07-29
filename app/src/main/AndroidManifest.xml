@@ -16,10 +16,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:screenOrientation="sensorPortrait"
         android:supportsRtl="true"
-        android:theme="@style/DarkTheme"
-        android:windowSoftInputMode="adjustResize">
+        android:theme="@style/DarkTheme">
         <activity android:name=".myblog.NewBlogActivity"></activity>
-        <activity android:name=".myblog.MyBlogActivity" />
+        <activity android:name=".myblog.MyBlogActivity"
+            android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
